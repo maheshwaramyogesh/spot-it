@@ -1,0 +1,5 @@
+spotit.db
+__pycache__/
+.venv/
+uploads/
+*.pyc
