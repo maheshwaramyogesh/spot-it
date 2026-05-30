@@ -1,6 +1,6 @@
-# 🤝 Contributing to SpotIt
+# 🤝 Contributing to Spot-it
 
-Thank you for contributing to **SpotIt**! 🚀
+Thank you for contributing to **Spot-it**! 🚀
 
 SpotIt is a CivicTech project that helps citizens anonymously report civic and public safety issues, making communities safer and more responsive.
 
