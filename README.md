@@ -1,187 +1,135 @@
-# 📍 Spot-it
+# 📍 SpotIt
 
-### See It. Spot It. Report It.
+## See It. Spot It. Report It.
+
+---
+
+## 📌 Project Overview
+
+**SpotIt** is a Streamlit-based civic issue reporting application where users can report local problems, upload image evidence, track report status, view dashboard analytics, and see report locations on a map.
+
+The project is designed to make issue reporting simple, organized, and easy to track. Users can submit reports through a user-friendly interface and later track their reports using a unique report ID.
+
+---
+
+## 🎯 Project Goal
+
+The main goal of **SpotIt** is to provide a simple digital platform for reporting and tracking local civic issues.
+
+SpotIt helps users to:
+
+- Report local problems
+- Upload image evidence
+- Track report status
+- View dashboard analytics
+- See report locations on a map
+
+---
+
+## 🏷️ Tagline
+
+> **See It. Spot It. Report It.**
 
 ---
 
 ## 📌 Problem Statement
 
-Many citizens notice civic and public safety issues such as damaged roads, broken streetlights, illegal dumping, open manholes, and unsafe public spaces.
+Many local issues are noticed by people, but they are not always reported or tracked properly.
 
-However, these issues often go unreported due to:
+Users may face problems such as:
 
-* 🔒 Privacy concerns
-* 📝 Complicated reporting processes
-* ❓ Lack of awareness about where to report
-* ⏳ Time-consuming complaint systems
+- No simple platform to report local issues
+- No proper tracking system after submitting a report
+- No clear view of report locations
+- Limited visibility of report status and analytics
 
-As a result, many local problems remain unresolved and continue to affect communities.
+Because of this, local problems may remain unorganized and difficult to monitor.
 
 ---
 
 ## 💡 Proposed Solution
 
-**SpotIt** is an anonymous civic reporting platform that enables citizens to quickly report public issues without revealing their identity.
+**SpotIt** solves this problem by providing a simple civic issue reporting system.
 
-Users can:
+The application allows users to:
 
-* 📸 Upload photos of civic issues
-* 📍 Mark the location
-* 🏷️ Select an issue category
-* 📝 Add a brief description
-* 🚀 Submit reports anonymously
+- Submit issue reports
+- Upload image evidence
+- Generate a unique report ID
+- Track report status
+- View analytics on a dashboard
+- View report locations on a map
 
-The platform visualizes reports on an interactive map and dashboard, helping communities identify and prioritize local issues.
-
----
-
-## 🎯 Key Features
-
-### 👤 Anonymous Reporting
-
-Report civic and safety issues without creating an account.
-
-### 📸 Photo Evidence
-
-Upload images to provide visual proof of reported issues.
-
-### 📍 Location Tagging
-
-Mark the exact location of the issue.
-
-### 🗺️ Interactive Map
-
-View reported issues and hotspots across the city.
-
-### 📊 Public Dashboard
-
-Track trends and monitor community-reported concerns.
-
-### 👍 Community Validation
-
-Support existing reports and highlight urgent issues.
-
-### 📈 Analytics & Insights
-
-Understand issue patterns and affected areas.
+This makes the reporting process simple, clear, and user-friendly.
 
 ---
 
-## 🔍 Existing Solutions
+## ✨ Key Features
 
-Current civic complaint systems mainly focus on submitting complaints to authorities.
+### 📝 Report Issue
 
-Examples include:
+Users can report a local problem by entering the issue category, location, and description.
 
-* Government grievance portals
-* Municipal complaint systems
-* City-specific civic service applications
+### 📸 Upload Image Evidence
 
----
+Users can upload an image as supporting evidence for the report.
 
-## ⭐ What Makes SpotIt Different?
+### 🆔 Report ID Generation
 
-Most existing platforms focus on formal complaint handling.
+After submitting a report, the system generates a unique report ID.
 
-**SpotIt** focuses on:
+### 🔎 Track Report Status
 
-* 🔒 Anonymous reporting
-* 🌍 Community participation
-* 📍 Hotspot identification
-* 📊 Public visibility of local issues
-* 🤝 Encouraging citizens to contribute without barriers
+Users can track their submitted report using the generated report ID.
 
-### Unique Value Proposition
+### 📊 Dashboard Analytics
 
-> SpotIt addresses the problem of underreporting by providing a simple, anonymous, and community-driven platform for identifying civic and public safety issues.
+The dashboard displays useful insights such as report count, category-wise reports, report status, and recent reports.
+
+### 🗺️ Map View
+
+Users can view report locations on a map and understand where issues are reported.
+
+### 🗃️ Database Storage
+
+Submitted reports are stored using SQLite for saving and retrieving report details.
 
 ---
 
 ## 🛠️ Tech Stack
 
-### Frontend
-
-* Streamlit
-
-### Backend
-
-* Python
-
-### Database
-
-* SQLite
-
-### Data Processing
-
-* Pandas
-
-### Maps
-
-* Folium
-* OpenStreetMap
-
-### Version Control
-
-* Git
-* GitLab
+| Category | Technology |
+|---|---|
+| Frontend | Streamlit |
+| Backend | Python |
+| Database | SQLite |
+| Data Processing | Pandas |
+| Map View | Streamlit Map |
+| Image Handling | Python File Handling |
+| Version Control | Git |
+| Collaboration | GitLab |
 
 ---
 
-## 👥 Team Responsibilities
+## 📁 Project Structure
 
-### Jyotsna – Frontend/UI
-
-* Home Page
-* Report Issue Page
-* Issue Tracking Page
-* User Experience
-
-### Mansi – Database & Backend
-
-* SQLite Database
-* Complaint Storage
-* Retrieval Functions
-* Status Management
-
-### Pooja – Image Handling
-
-* Image Upload
-* Image Validation
-* File Management
-
-### Yogesh – Dashboard & Analytics
-
-* Public Dashboard
-* Statistics
-* Issue Analytics
-
-### Venkat Sai – Maps & Integration
-
-* Interactive Maps
-* Location Features
-* System Integration
-* Deployment
-
----
-
-## 🚀 Expected Impact
-
-SpotIt aims to:
-
-* Increase civic participation
-* Encourage anonymous reporting
-* Improve visibility of local issues
-* Help communities identify problem hotspots
-* Support safer and better-maintained public spaces
-
----
-
-## 🌟 Vision
-
-> "See it. Spot it. Improve it."
-
----
-
-### 🏆 Built for CivicTech Hackathon 2026
-
-### ❤️ Empowering Communities Through Civic Participation
+```text
+spot-it/
+│
+├── app.py
+├── database.py
+├── image_utils.py
+├── requirements.txt
+├── README.md
+├── Contribution.md
+├── agents.md
+├── user_manual.md
+├── test_image.py
+│
+├── pages/
+│   ├── dashboard.py
+│   ├── report_issue.py
+│   ├── track_issue.py
+│   └── map_view.py
+│
+└── .gitignore
