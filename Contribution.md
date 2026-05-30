@@ -1,4 +1,4 @@
-# 🤝 Contributing to Spot-it
+/home/jatin/spotit/app.py# 🤝 Contributing to Spot-it
 
 Thank you for contributing to **Spot-it**! 🚀
 
