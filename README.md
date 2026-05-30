@@ -1,6 +1,6 @@
-# 📍 SpotIt
+# 📍 Spot-it
 
-### See It. Spot It. Improve It.
+### See It. Spot It. Report It.
 
 ---
 
