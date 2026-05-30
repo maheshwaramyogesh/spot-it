@@ -187,3 +187,87 @@ st.write("""
 """)
 
 st.markdown("</div>", unsafe_allow_html=True)
+st.markdown('<div class="section-card">', unsafe_allow_html=True)
+st.subheader("📋 Recent Reports")
+
+st.dataframe(
+    reports,
+    use_container_width=True,
+    hide_index=True
+)
+
+st.markdown("</div>", unsafe_allow_html=True)
+
+# --------------------------------------------------
+# Status Distribution
+# --------------------------------------------------
+
+st.markdown('<div class="section-card">', unsafe_allow_html=True)
+
+st.subheader("📈 Report Status Overview")
+
+status_data = pd.DataFrame({
+    "Status": [
+        "Submitted",
+        "Under Review",
+        "Verified",
+        "In Progress",
+        "Resolved"
+    ],
+    "Count": [21, 18, 35, 22, 13]
+})
+
+st.bar_chart(
+    status_data.set_index("Status")
+)
+
+st.markdown("</div>", unsafe_allow_html=True)
+
+# --------------------------------------------------
+# Community Insights
+# --------------------------------------------------
+
+st.markdown('<div class="section-card">', unsafe_allow_html=True)
+
+st.subheader("💡 Community Insights")
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.success(
+        """
+        Most Reported Category
+
+        Unsafe Area
+        """
+    )
+
+with col2:
+    st.info(
+        """
+        Most Active Location
+
+        Ameerpet
+        """
+    )
+
+with col3:
+    st.warning(
+        """
+        Weekly Reports
+
+        128 Reports
+        """
+    )
+
+st.markdown("</div>", unsafe_allow_html=True)
+
+# --------------------------------------------------
+# Footer
+# --------------------------------------------------
+
+st.markdown("---")
+
+st.caption(
+    "SpotIt Dashboard • CivicTech Hackathon 2026 • Community Safety Analytics"
+)
