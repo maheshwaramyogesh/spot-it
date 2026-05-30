@@ -171,7 +171,6 @@ with st.container():
                 "Save this ID to track your report."
             )
 
-            st.balloons()
 
     st.markdown("</div>", unsafe_allow_html=True)
 
