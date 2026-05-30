@@ -1,9 +1,11 @@
 import sqlite3
+import os
 from datetime import datetime
 from typing import Optional, List, Dict
 
-
-DB_NAME = "spotit.db"
+# ── Fix for OneDrive path issue ──────────────────────────────────
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_NAME = os.path.join(BASE_DIR, "spotit.db")
 
 
 def get_connection():
@@ -53,26 +55,13 @@ def create_report(
 
         cursor.execute("""
             INSERT INTO reports (
-                report_id,
-                category,
-                description,
-                location,
-                date,
-                time,
-                image_path,
-                status,
-                created_at
+                report_id, category, description, location,
+                date, time, image_path, status, created_at
             )
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
-            report_id,
-            category,
-            description,
-            location,
-            date,
-            time,
-            image_path,
-            "Submitted",
+            report_id, category, description, location,
+            date, time, image_path, "Submitted",
             datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         ))
 
@@ -100,7 +89,6 @@ def get_report(report_id: str) -> Optional[Dict]:
 
     if row:
         return dict(row)
-
     return None
 
 
@@ -124,15 +112,12 @@ def update_status(report_id: str, status: str) -> bool:
         cursor = conn.cursor()
 
         cursor.execute("""
-            UPDATE reports
-            SET status = ?
-            WHERE report_id = ?
+            UPDATE reports SET status = ? WHERE report_id = ?
         """, (status, report_id))
 
         conn.commit()
         updated = cursor.rowcount > 0
         conn.close()
-
         return updated
 
     except sqlite3.Error as error:
@@ -154,7 +139,6 @@ def delete_report(report_id: str) -> bool:
         conn.commit()
         deleted = cursor.rowcount > 0
         conn.close()
-
         return deleted
 
     except sqlite3.Error as error:
@@ -185,11 +169,11 @@ def get_report_stats() -> Dict:
     conn.close()
 
     return {
-        "total_reports": total_reports,
-        "submitted_reports": submitted_reports,
+        "total_reports":       total_reports,
+        "submitted_reports":   submitted_reports,
         "under_review_reports": under_review_reports,
-        "verified_reports": verified_reports,
-        "resolved_reports": resolved_reports
+        "verified_reports":    verified_reports,
+        "resolved_reports":    resolved_reports
     }
 
 
