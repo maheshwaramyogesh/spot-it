@@ -30,6 +30,7 @@ SpotIt helps users to:
 
 > **See It. Spot It. Report It.**
 
+Live demo - https://spot-itwebsite.streamlit.app/
 ---
 
 ## 📌 Problem Statement
