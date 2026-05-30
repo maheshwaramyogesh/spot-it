@@ -133,3 +133,147 @@ spot-it/
 │   └── map_view.py
 │
 └── .gitignore
+```
+
+---
+
+## 📄 Module Overview
+
+### 🏠 Home Page
+
+Introduces the SpotIt application and helps users navigate through the project.
+
+### 📝 Report Issue Page
+
+Allows users to submit reports by entering issue details and uploading image evidence.
+
+### 🔎 Track Issue Page
+
+Allows users to track the current status of a submitted report using a report ID.
+
+### 📊 Dashboard Page
+
+Displays report analytics, report summary, status details, and recent reports.
+
+### 🗺️ Map View Page
+
+Displays report locations on a map and helps users understand location-based report data.
+
+### 🗃️ Database Module
+
+Handles storing and retrieving report information using SQLite.
+
+### 🖼️ Image Utility Module
+
+Handles image upload, image validation, and image storage.
+
+---
+
+## 🚀 How to Run the Project Locally
+
+### 1. Clone the Repository
+
+```bash
+git clone https://code.swecha.org/venkat_k10/spot-it.git
+```
+
+### 2. Open the Project Folder
+
+```bash
+cd spot-it
+```
+
+### 3. Install Required Packages
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Run the Streamlit App
+
+```bash
+streamlit run app.py
+```
+
+### 5. Open in Browser
+
+After running the command, Streamlit will open the application in your browser.
+
+---
+
+## 👥 Team Members & Contributions
+
+| Team Member | Role | Contribution |
+|---|---|---|
+| Jyotsna | Frontend & UI | Built the user interface, home page, report issue page, and tracking page |
+| Mansi | Database & Backend | Added SQLite database, report saving, report retrieval, and backend functions |
+| Pooja | Image Upload & File Handling | Implemented image upload, file validation, and image storage features |
+| Yogesh | Dashboard & Analytics | Developed dashboard metrics, analytics, report summaries, and insights |
+| Venkat Sai | Maps & Final Integration | Added map view, location-based report display, final integration, and project coordination |
+
+---
+
+## 📊 Dashboard Analytics
+
+The dashboard helps users understand report data through:
+
+- Total submitted reports
+- Reports by category
+- Reports by status
+- Recent report activity
+- Report insights
+
+---
+
+## 🗺️ Map View
+
+The map view helps users see report locations visually.
+
+It includes:
+
+- Report location display
+- Status-based filtering
+- Category-based filtering
+- Location-wise report details
+
+---
+
+## 🔮 Future Enhancements
+
+Future improvements can include:
+
+- Real-time location detection
+- Admin panel
+- Report verification system
+- Email or SMS status updates
+- Advanced dashboard filters
+- Improved map visualization
+- Cloud deployment
+
+---
+
+## 🚀 Expected Outcome
+
+SpotIt helps users report, track, and understand local civic issues using one simple platform.
+
+It improves:
+
+- Report organization
+- User accessibility
+- Report tracking
+- Location visibility
+- Community awareness
+
+---
+
+## 🏆 Built For
+
+### CivicTech Hackathon 2026
+
+---
+
+## ❤️ Final Note
+
+SpotIt is built to make local issue reporting simple, visual, and easy to track.
+
+> **See It. Spot It. Report It.**
