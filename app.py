@@ -9,6 +9,7 @@ import base64
 import os
 import streamlit as st
 from database import init_db, get_report_stats
+from sidebar_component import render_sidebar
 
 init_db()
 _stats = get_report_stats()
@@ -43,15 +44,51 @@ LOGO_HTML = (
 )
 LOGO_SMALL = (
     f'<img src="data:image/png;base64,{LOGO_B64}" '
-    f'style="height:36px; object-fit:contain;" alt="SpotIt">'
+    f'style="height:140px; width:190px; object-fit:contain;" alt="SpotIt">'
     if LOGO_B64
-    else '<span style="font-size:26px;">📍</span>'
+    else '<span style="font-size:70px;">📍</span>'
 )
 
 
 # ── Master CSS ──────────────────────────────────────────────────
 MASTER_CSS = """
 <style>
+/* Hide Streamlit default multipage sidebar list */
+[data-testid="stSidebarNav"] {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Hide Streamlit sidebar collapse icon text like keyboard_double */
+[data-testid="stSidebarCollapseButton"],
+[data-testid="stSidebarCollapseButton"] *,
+button[title="Close sidebar"],
+button[title="Open sidebar"] {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* Remove default top sidebar gap */
+section[data-testid="stSidebar"] > div:first-child {
+    padding-top: 0rem !important;
+}
+
+/* Hide default Streamlit multipage navigation */
+[data-testid="stSidebarNav"] {
+    display: none !important;
+}
+
+/* Remove Streamlit default sidebar top spacing */
+section[data-testid="stSidebar"] > div:first-child {
+    padding-top: 0rem !important;
+}
+
+/* Hide unwanted keyboard_double text if rendered anywhere */
+div:has(> span):contains("keyboard_double") {
+    display: none !important;
+}
 /* ── Google Fonts ── */
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&display=swap');
 
@@ -187,6 +224,10 @@ div[data-testid="stHorizontalBlock"] { gap: 20px; }
 /* ══════════════════════════════════════════════
    SIDEBAR — PREMIUM DARK PURPLE
 ══════════════════════════════════════════════ */
+/* Strongly remove auto-generated Streamlit navigation */
+section[data-testid="stSidebar"] nav {
+    display: none !important;
+}
 [data-testid="stSidebar"] {
     background: linear-gradient(180deg, #1E0A3C 0%, #2D1B69 50%, #3B1F7A 100%) !important;
     border-right: 1px solid rgba(167,139,250,0.15) !important;
@@ -435,7 +476,7 @@ div[data-testid="stHorizontalBlock"] { gap: 20px; }
     animation: slideInRight 0.7s ease 0.2s both;
 }
 .hero-logo-float {
-    animation: floatLogo 4s ease-in-out infinite;
+    animation:none !important;
     filter: drop-shadow(0 20px 48px rgba(124,58,237,0.5));
 }
 .hero-logo-badge {
@@ -824,33 +865,29 @@ st.markdown(MASTER_CSS, unsafe_allow_html=True)
 
 
 # ── Sidebar ─────────────────────────────────────────────────────
-def render_sidebar() -> None:
+def old_render_sidebar() -> None:
     """Render the premium dark-purple branded sidebar."""
     with st.sidebar:
-        # Logo + brand block
         st.markdown(f"""
         <div class="sidebar-logo-block">
-            <div class="hero-logo-float" style="animation:floatLogo 4s ease-in-out infinite;">
-                {LOGO_SMALL}
+            <div style="animation:none !important; text-align:left;">
+               {LOGO_SMALL}
             </div>
             <div class="brand-name">SpotIt</div>
             <div class="brand-tagline">Community Safety Platform</div>
         </div>
         """, unsafe_allow_html=True)
 
-        # Navigation label
         st.markdown('<div class="sidebar-nav-label">Navigation</div>', unsafe_allow_html=True)
 
-        # Page links
-        st.page_link("app.py",                   label="🏠  Home",                  use_container_width=True)
-        st.page_link("pages/report_issue.py",     label="🚨  Report Incident",       use_container_width=True)
-        st.page_link("pages/track_issue.py",      label="🔍  Track Incident",        use_container_width=True)
-        st.page_link("pages/dashboard.py",        label="📊  Community Dashboard",   use_container_width=True)
-        st.page_link("pages/map_view.py",         label="🗺️  Safety Map",            use_container_width=True)
+        st.page_link("app.py", label="🏠 Home", use_container_width=True)
+        st.page_link("pages/report_issue.py", label="🚨 Report Incident", use_container_width=True)
+        st.page_link("pages/track_issue.py", label="🔍 Track Incident", use_container_width=True)
+        st.page_link("pages/dashboard.py", label="📊 Community Dashboard", use_container_width=True)
+        st.page_link("pages/map_view.py", label="🗺️ Safety Map", use_container_width=True)
 
         st.markdown('<hr style="border-color:rgba(167,139,250,0.2); margin:20px 0;">', unsafe_allow_html=True)
 
-        # Live stats in sidebar
         st.markdown('<div class="sidebar-nav-label">Live Overview</div>', unsafe_allow_html=True)
 
         try:
@@ -867,6 +904,7 @@ def render_sidebar() -> None:
                 ("✅", "0", "Resolved"),
                 ("⏳", "0", "Under Review"),
             ]
+
         for icon, val, lbl in sidebar_stats:
             st.markdown(f"""
             <div class="sidebar-stat">
@@ -880,7 +918,6 @@ def render_sidebar() -> None:
 
         st.markdown('<hr style="border-color:rgba(167,139,250,0.2); margin:20px 0;">', unsafe_allow_html=True)
 
-        # Footer
         st.markdown("""
         <div class="sidebar-footer">
             <span class="live-dot"></span> Platform Live<br>
@@ -889,8 +926,6 @@ def render_sidebar() -> None:
             v1.0.0
         </div>
         """, unsafe_allow_html=True)
-
-
 # ── Hero section ─────────────────────────────────────────────────
 def render_hero() -> None:
     """Full-width animated hero with floating logo and working CTA buttons."""
