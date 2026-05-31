@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from database import init_db, get_all_reports
+from sidebar_component import render_sidebar
 
 st.set_page_config(
     page_title="Dashboard | SpotIt",
@@ -11,6 +12,16 @@ st.set_page_config(
 
 st.markdown("""
 <style>
+            render_sidebar()
+            /* Hide default Streamlit multipage navigation */
+[data-testid="stSidebarNav"] {
+    display: none !important;
+}
+
+/* Remove default sidebar spacing */
+section[data-testid="stSidebar"] > div:first-child {
+    padding-top: 0rem !important;
+}
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&display=swap');
 :root {
     --p300: #C4B5FD;
