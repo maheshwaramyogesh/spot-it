@@ -9,6 +9,77 @@ from database import init_db, get_all_reports
 
 st.set_page_config(page_title="SpotIt Safety Map", page_icon="🗺️", layout="wide")
 
+st.markdown("""
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&display=swap');
+:root {
+    --p300: #C4B5FD;
+    --p500: #7C3AED;
+    --gray-600: #4B5563;
+    --gray-800: #1F1535;
+    --grad-page: linear-gradient(160deg, #F3EFFE 0%, #FAFAFA 50%, #EDE9FE 100%);
+    --shadow-card: 0 8px 32px rgba(91,33,182,0.12);
+}
+[data-testid="stAppViewContainer"] {
+    background: var(--grad-page) !important;
+    background-attachment: fixed !important;
+}
+#MainMenu, footer, [data-testid="stDeployButton"] { display: none !important; }
+[data-testid="stHeader"] { background: transparent !important; height: 0; }
+[data-testid="stAppViewBlockContainer"] {
+    padding-top: 16px !important;
+    max-width: 1200px;
+}
+[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #1E0A3C 0%, #2D1B69 50%, #3B1F7A 100%) !important;
+    border-right: 1px solid rgba(167,139,250,0.15) !important;
+}
+[data-testid="stSidebar"] * {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    color: rgba(221,214,254,0.85) !important;
+}
+[data-testid="stSidebar"] [data-testid="stPageLink"] a {
+    background: rgba(167,139,250,0.08) !important;
+    border: 1px solid rgba(167,139,250,0.12) !important;
+    border-radius: 8px !important;
+    color: rgba(221,214,254,0.9) !important;
+}
+[data-testid="stSidebar"] [data-testid="stPageLink"] a:hover {
+    background: rgba(167,139,250,0.18) !important;
+    border-color: rgba(167,139,250,0.35) !important;
+    color: #fff !important;
+}
+.stApp, .stMarkdown, .stMarkdown p, label {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+}
+h1, h2, h3 {
+    font-family: 'Fraunces', serif !important;
+    color: var(--gray-800) !important;
+}
+.stMarkdown, .stMarkdown p, .stCaptionContainer {
+    color: var(--gray-600);
+}
+[data-testid="stMetric"],
+.stExpander,
+[data-testid="stSelectbox"] {
+    background: rgba(255,255,255,0.88);
+    border: 1px solid rgba(167,139,250,0.20);
+    border-radius: 16px;
+    box-shadow: var(--shadow-card);
+}
+[data-testid="stMetric"] {
+    padding: 16px;
+}
+[data-testid="stMetricValue"] {
+    color: var(--p500);
+}
+label, [data-testid="stSelectbox"] label {
+    color: var(--gray-800) !important;
+    font-weight: 700 !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
 init_db()
 
 st.title("🗺️ SpotIt Safety Map")

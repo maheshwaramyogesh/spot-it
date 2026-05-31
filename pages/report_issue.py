@@ -16,53 +16,97 @@ st.set_page_config(
 
 st.markdown("""
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&display=swap');
+:root {
+    --p200: #DDD6FE;
+    --p300: #C4B5FD;
+    --p500: #7C3AED;
+    --p600: #6D28D9;
+    --p700: #5B21B6;
+    --p400: #A78BFA;
+    --white: #FFFFFF;
+    --gray-600: #4B5563;
+    --gray-800: #1F1535;
+    --grad-page: linear-gradient(160deg, #F3EFFE 0%, #FAFAFA 50%, #EDE9FE 100%);
+    --grad-card: linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%);
+    --shadow-card: 0 8px 32px rgba(91,33,182,0.12);
+}
 [data-testid="stAppViewContainer"] {
-    background: radial-gradient(circle at top left, rgba(124,58,237,0.22), transparent 35%),
-                radial-gradient(circle at top right, rgba(37,99,235,0.18), transparent 30%),
-                #080914;
+    background: var(--grad-page) !important;
+    background-attachment: fixed !important;
+}
+#MainMenu, footer, [data-testid="stDeployButton"] { display: none !important; }
+[data-testid="stHeader"] { background: transparent !important; height: 0; }
+[data-testid="stAppViewBlockContainer"] {
+    padding-top: 16px !important;
+    max-width: 1200px;
+}
+[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #1E0A3C 0%, #2D1B69 50%, #3B1F7A 100%) !important;
+    border-right: 1px solid rgba(167,139,250,0.15) !important;
+}
+[data-testid="stSidebar"] * {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    color: rgba(221,214,254,0.85) !important;
+}
+[data-testid="stSidebar"] [data-testid="stPageLink"] a {
+    background: rgba(167,139,250,0.08) !important;
+    border: 1px solid rgba(167,139,250,0.12) !important;
+    border-radius: 8px !important;
+    color: rgba(221,214,254,0.9) !important;
+}
+[data-testid="stSidebar"] [data-testid="stPageLink"] a:hover {
+    background: rgba(167,139,250,0.18) !important;
+    border-color: rgba(167,139,250,0.35) !important;
+    color: #fff !important;
+}
+.stMarkdown p, .stTextInput label, .stTextArea label, .stSelectbox label, .stDateInput label, .stTimeInput label, .stFileUploader label {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
 }
 .main-title {
+    font-family: 'Fraunces', serif;
     font-size: 42px;
     font-weight: 900;
-    color: #ffffff;
+    color: #000000;
     text-align: center;
     margin-bottom: 6px;
 }
 .subtitle {
-    color: rgba(255,255,255,0.72);
+    color: #000000;
     font-size: 18px;
     text-align: center;
     margin-bottom: 28px;
 }
 .form-card {
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(167,139,250,0.25);
+    background: rgba(255,255,255,0.88);
+    border: 1px solid rgba(167,139,250,0.20);
     border-radius: 24px;
     padding: 28px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    box-shadow: var(--shadow-card);
     backdrop-filter: blur(16px);
     animation: slideUp 0.7s ease both;
 }
 .privacy-card {
-    background: rgba(124,58,237,0.12);
-    border: 1px solid rgba(167,139,250,0.25);
+    background: rgba(255,255,255,0.88);
+    border: 1px solid rgba(167,139,250,0.20);
     border-radius: 18px;
     padding: 18px;
-    color: rgba(255,255,255,0.78);
+    color: var(--gray-600);
     margin-top: 24px;
+    box-shadow: var(--shadow-card);
 }
 .stTextInput label, .stTextArea label, .stSelectbox label, .stDateInput label, .stTimeInput label, .stFileUploader label {
-    color: rgba(255,255,255,0.88) !important;
+    color: var(--gray-800) !important;
     font-weight: 700 !important;
 }
 .stTextInput input, .stTextArea textarea {
-    background: rgba(255,255,255,0.08) !important;
-    color: white !important;
+    background: var(--white) !important;
+    color: var(--gray-800) !important;
     border-radius: 12px !important;
-    border: 1px solid rgba(167,139,250,0.25) !important;
+    border: 1px solid rgba(167,139,250,0.35) !important;
 }
 .stButton > button {
-    background: linear-gradient(90deg, #7C3AED, #2563EB);
+    background: var(--grad-card);
     color: white;
     border: none;
     border-radius: 14px;
@@ -70,11 +114,11 @@ st.markdown("""
     font-weight: 800;
     width: 100%;
     transition: 0.25s;
-    box-shadow: 0 0 24px rgba(124,58,237,0.35);
+    box-shadow: 0 4px 20px rgba(124,58,237,0.35);
 }
 .stButton > button:hover {
     transform: translateY(-2px) scale(1.01);
-    box-shadow: 0 0 35px rgba(124,58,237,0.55);
+    box-shadow: 0 8px 32px rgba(124,58,237,0.45);
 }
 @keyframes slideUp {
     from { opacity: 0; transform: translateY(22px); }
