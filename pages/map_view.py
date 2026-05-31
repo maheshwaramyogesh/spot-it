@@ -3,6 +3,7 @@ import pandas as pd
 import sys
 import os
 
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from database import init_db, get_all_reports
 
@@ -28,7 +29,6 @@ location_coords = {
     "Dilsukhnagar":  (17.3686, 78.5247),
     "Koti":          (17.3850, 78.4867),
     "Charminar":     (17.3616, 78.4747),
-    "Gachibowli":    (17.4401, 78.3489),
 }
 
 all_reports = get_all_reports()
