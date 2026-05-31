@@ -10,6 +10,9 @@ import os
 import streamlit as st
 from database import init_db, get_report_stats
 
+init_db()
+_stats = get_report_stats()
+
 # ── Page config — MUST be first Streamlit call ──────────────────
 st.set_page_config(
     page_title="SpotIt — See It. Spot It. Report It.",
@@ -890,73 +893,101 @@ def render_sidebar() -> None:
 
 # ── Hero section ─────────────────────────────────────────────────
 def render_hero() -> None:
-    """Full-width animated hero with floating logo and CTA buttons."""
+    """Full-width animated hero with floating logo and working CTA buttons."""
     left, right = st.columns([3, 2], gap="large")
 
     with left:
-        st.markdown(f"""
-        <div class="hero-section">
-            <div class="hero-glass-strip"></div>
-            <div class="hero-badge">
-                🏆 &nbsp; CivicTech Hackathon 2026 &nbsp;·&nbsp; Community Safety
-            </div>
-            <h1 class="hero-headline">
-                See It.<br>
-                <span class="accent-word">Spot It.</span><br>
-                Report It.
-            </h1>
-            <p class="hero-subheadline">
-                Anonymous community safety reporting for a safer society.
-                Report incidents, track resolutions, and help your community
-                identify safety hotspots — with zero identity exposure.
-            </p>
-            <div class="hero-cta-row">
-                <span class="btn-primary">🚨 Report Incident</span>
-                <span class="btn-secondary">🔍 Track Status</span>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+        hero_html = (
+            '<div class="hero-section">'
+            '<div class="hero-glass-strip"></div>'
+            '<div class="hero-badge">'
+            '🏆 &nbsp; CivicTech Hackathon 2026 &nbsp;·&nbsp; Community Safety'
+            '</div>'
+            '<h1 class="hero-headline">'
+            'See It.<br>'
+            '<span class="accent-word">Spot It.</span><br>'
+            'Report It.'
+            '</h1>'
+            '<p class="hero-subheadline">'
+            'Anonymous community safety reporting for a safer society. '
+            'Report incidents, track resolutions, and help your community '
+            'identify safety hotspots — with zero identity exposure.'
+            '</p>'
+            '</div>'
+        )
+
+        st.markdown(hero_html, unsafe_allow_html=True)
+
+        btn_col1, btn_col2 = st.columns(2)
+
+        with btn_col1:
+            if st.button("🚨 Report Incident", key="hero_report_btn", use_container_width=True):
+                st.switch_page("pages/report_issue.py")
+
+        with btn_col2:
+            if st.button("🔍 Track Status", key="hero_track_btn", use_container_width=True):
+                st.switch_page("pages/track_issue.py")
 
     with right:
-        st.markdown(f"""
-        <div style="display:flex; flex-direction:column; gap:16px; padding-top:8px;">
-            <!-- Floating logo card -->
-            <div style="background:linear-gradient(135deg,#2D1B69,#5B21B6);
-                        border-radius:24px; padding:36px 24px; text-align:center;
-                        border:1px solid rgba(167,139,250,0.25);
-                        box-shadow:0 20px 60px rgba(91,33,182,0.35);
-                        position:relative; overflow:hidden;">
-                <div style="position:absolute;top:-40px;right:-40px;width:160px;height:160px;
-                            background:radial-gradient(circle,rgba(245,158,11,0.2),transparent 70%);
-                            border-radius:50%;"></div>
-                <div class="hero-logo-float">{LOGO_HTML}</div>
-                <div class="hero-logo-badge">🔒 100% Anonymous Reporting</div>
-            </div>
-            <!-- Quick stat cards -->
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-                <div style="background:rgba(255,255,255,0.88); border:1px solid rgba(167,139,250,0.18);
-                            border-radius:16px; padding:18px 14px; text-align:center;
-                            box-shadow:0 4px 16px rgba(124,58,237,0.10);">
-                    <div style="font-family:'Fraunces',serif; font-size:26px; font-weight:900;
-                                color:#7C3AED;">1.2K+</div>
-                    <div style="font-size:11px; color:#9CA3AF; font-weight:500;
-                                text-transform:uppercase; letter-spacing:0.8px; margin-top:4px;">
-                        Reports</div>
-                </div>
-                <div style="background:rgba(255,255,255,0.88); border:1px solid rgba(167,139,250,0.18);
-                            border-radius:16px; padding:18px 14px; text-align:center;
-                            box-shadow:0 4px 16px rgba(124,58,237,0.10);">
-                    <div style="font-family:'Fraunces',serif; font-size:26px; font-weight:900;
-                                color:#F59E0B;">68%</div>
-                    <div style="font-size:11px; color:#9CA3AF; font-weight:500;
-                                text-transform:uppercase; letter-spacing:0.8px; margin-top:4px;">
-                        Resolved</div>
-                </div>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+        right_html = (
+            '<div style="display:flex; flex-direction:column; gap:16px; padding-top:8px;">'
 
+            '<div style="background:linear-gradient(135deg,#2D1B69,#5B21B6);'
+            'border-radius:24px; padding:36px 24px; text-align:center;'
+            'border:1px solid rgba(167,139,250,0.25);'
+            'box-shadow:0 20px 60px rgba(91,33,182,0.35);'
+            'position:relative; overflow:hidden;">'
 
+            '<div style="position:absolute; top:-40px; right:-40px; width:160px; height:160px;'
+            'background:radial-gradient(circle,rgba(245,158,11,0.2),transparent 70%);'
+            'border-radius:50%;"></div>'
+
+            f'<div class="hero-logo-float">{LOGO_HTML}</div>'
+            '<div class="hero-logo-badge">🔒 100% Anonymous Reporting</div>'
+
+            '</div>'
+
+            '<div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">'
+
+            '<div style="background:rgba(255,255,255,0.88);'
+            'border:1px solid rgba(167,139,250,0.18);'
+            'border-radius:16px; padding:18px 14px; text-align:center;'
+            'box-shadow:0 4px 16px rgba(124,58,237,0.10);">'
+
+            '<div style="font-family:\'Fraunces\',serif; font-size:26px; font-weight:900; color:#7C3AED;">'
+            f'{_stats["total_reports"]}'
+            '</div>'
+
+            '<div style="font-size:11px; color:#9CA3AF; font-weight:500;'
+            'text-transform:uppercase; letter-spacing:0.8px; margin-top:4px;">'
+            'Reports'
+            '</div>'
+
+            '</div>'
+
+            '<div style="background:rgba(255,255,255,0.88);'
+            'border:1px solid rgba(167,139,250,0.18);'
+            'border-radius:16px; padding:18px 14px; text-align:center;'
+            'box-shadow:0 4px 16px rgba(124,58,237,0.10);">'
+
+            '<div style="font-family:\'Fraunces\',serif; font-size:26px; font-weight:900; color:#F59E0B;">'
+            f'{_stats["resolved_reports"]}'
+            '</div>'
+
+            '<div style="font-size:11px; color:#9CA3AF; font-weight:500;'
+            'text-transform:uppercase; letter-spacing:0.8px; margin-top:4px;">'
+            'Resolved'
+            '</div>'
+
+            '</div>'
+
+            '</div>'
+            '</div>'
+        )
+
+        st.markdown(right_html, unsafe_allow_html=True)
+
+        
 # ── Stats bar ────────────────────────────────────────────────────
 def render_stats() -> None:
     """Animated glassmorphism statistics cards."""
@@ -968,21 +999,21 @@ def render_stats() -> None:
     </div>
     """, unsafe_allow_html=True)
 
-    stats = [
-        ("🚨", "linear-gradient(135deg,#FEE2E2,#FECACA)", "#B91C1C",
-         "1,248", "Incidents Reported",   "↑ 12% this week",   "delta-up"),
-        ("✅", "linear-gradient(135deg,#D1FAE5,#A7F3D0)", "#065F46",
-         "847",   "Cases Resolved",       "↑ 8% this week",    "delta-up"),
-        ("⚡", "linear-gradient(135deg,#FEF3C7,#FDE68A)", "#92400E",
-         "4.2d",  "Avg Response Time",    "↓ 0.8d faster",     "delta-up"),
-        ("🏙️", "linear-gradient(135deg,#EDE9FE,#DDD6FE)", "#5B21B6",
-         "18",    "Cities Covered",       "↑ 3 new cities",    "delta-up"),
-        ("👥", "linear-gradient(135deg,#E0F2FE,#BAE6FD)", "#0369A1",
-         "4.6K+", "Active Citizens",      "Growing daily",     "delta-up"),
-    ]
+stats = [
+    ("🚨", "linear-gradient(135deg,#FEE2E2,#FECACA)", "#B91C1C",
+     str(_stats["total_reports"]), "Incidents Reported", "Live count", "delta-up"),
+    ("✅", "linear-gradient(135deg,#D1FAE5,#A7F3D0)", "#065F46",
+     str(_stats["resolved_reports"]), "Cases Resolved", "Live count", "delta-up"),
+    ("⚡", "linear-gradient(135deg,#FEF3C7,#FDE68A)", "#92400E",
+     str(_stats["under_review_reports"]), "Under Review", "Live count", "delta-up"),
+    ("🏙️", "linear-gradient(135deg,#EDE9FE,#DDD6FE)", "#5B21B6",
+     str(_stats["submitted_reports"]), "Submitted", "Live count", "delta-up"),
+    ("👥", "linear-gradient(135deg,#E0F2FE,#BAE6FD)", "#0369A1",
+     str(_stats["total_reports"]), "Total Reports", "Live count", "delta-up"),
+]
 
-    cols = st.columns(len(stats))
-    for col, (icon, bg, color, number, label, delta, delta_cls) in zip(cols, stats):
+cols = st.columns(len(stats))
+for col, (icon, bg, color, number, label, delta, delta_cls) in zip(cols, stats):
         with col:
             st.markdown(f"""
             <div class="stat-card-glass">
@@ -995,7 +1026,7 @@ def render_stats() -> None:
             </div>
             """, unsafe_allow_html=True)
 
-    st.markdown("</div>", unsafe_allow_html=True)
+st.markdown("</div>", unsafe_allow_html=True)
 
 
 # ── Features section ─────────────────────────────────────────────
