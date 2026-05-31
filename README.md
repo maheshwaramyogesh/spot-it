@@ -274,7 +274,6 @@ It improves:
 ---
 
 ## ❤️ Final Note
-
-SpotIt is built to make local issue reporting simple, visual, and easy to track.
+"SpotIt transforms civic issue reporting by enabling users to instantly report problems, upload evidence, and monitor issue status in real time."
 
 > **See It. Spot It. Report It.**
