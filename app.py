@@ -8,6 +8,7 @@
 import base64
 import os
 import streamlit as st
+from database import init_db, get_report_stats
 
 # ── Page config — MUST be first Streamlit call ──────────────────
 st.set_page_config(
@@ -842,17 +843,27 @@ def render_sidebar() -> None:
         st.page_link("pages/report_issue.py",     label="🚨  Report Incident",       use_container_width=True)
         st.page_link("pages/track_issue.py",      label="🔍  Track Incident",        use_container_width=True)
         st.page_link("pages/dashboard.py",        label="📊  Community Dashboard",   use_container_width=True)
+        st.page_link("pages/map_view.py",         label="🗺️  Safety Map",            use_container_width=True)
 
         st.markdown('<hr style="border-color:rgba(167,139,250,0.2); margin:20px 0;">', unsafe_allow_html=True)
 
         # Live stats in sidebar
         st.markdown('<div class="sidebar-nav-label">Live Overview</div>', unsafe_allow_html=True)
 
-        sidebar_stats = [
-            ("🚨", "1,248", "Total Reports"),
-            ("✅", "847",   "Resolved"),
-            ("⏳", "312",   "Under Review"),
-        ]
+        try:
+            init_db()
+            stats = get_report_stats()
+            sidebar_stats = [
+                ("🚨", str(stats["total_reports"]), "Total Reports"),
+                ("✅", str(stats["resolved_reports"]), "Resolved"),
+                ("⏳", str(stats["under_review_reports"]), "Under Review"),
+            ]
+        except Exception:
+            sidebar_stats = [
+                ("🚨", "0", "Total Reports"),
+                ("✅", "0", "Resolved"),
+                ("⏳", "0", "Under Review"),
+            ]
         for icon, val, lbl in sidebar_stats:
             st.markdown(f"""
             <div class="sidebar-stat">
@@ -871,7 +882,7 @@ def render_sidebar() -> None:
         <div class="sidebar-footer">
             <span class="live-dot"></span> Platform Live<br>
             🔒 Anonymous &amp; Secure<br>
-            🏆 CivicTech Hackathon 2025<br>
+            🏆 CivicTech Hackathon 2026<br>
             v1.0.0
         </div>
         """, unsafe_allow_html=True)
@@ -887,7 +898,7 @@ def render_hero() -> None:
         <div class="hero-section">
             <div class="hero-glass-strip"></div>
             <div class="hero-badge">
-                🏆 &nbsp; CivicTech Hackathon 2025 &nbsp;·&nbsp; Community Safety
+                🏆 &nbsp; CivicTech Hackathon 2026 &nbsp;·&nbsp; Community Safety
             </div>
             <h1 class="hero-headline">
                 See It.<br>
@@ -1140,13 +1151,15 @@ def render_cta() -> None:
     """, unsafe_allow_html=True)
 
     # Real navigation buttons below (these actually work)
-    c1, c2, c3 = st.columns(3, gap="medium")
+    c1, c2, c3, c4 = st.columns(4, gap="medium")
     with c1:
-        st.page_link("pages/report_issue.py", label="🚨 Report an Incident",    use_container_width=True)
+        st.page_link("pages/report_issue.py", label="🚨 Report an Incident", use_container_width=True)
     with c2:
-        st.page_link("pages/track_issue.py",  label="🔍 Track My Report",       use_container_width=True)
+        st.page_link("pages/track_issue.py", label="🔍 Track My Report", use_container_width=True)
     with c3:
-        st.page_link("pages/dashboard.py",    label="📊 Community Dashboard",   use_container_width=True)
+        st.page_link("pages/dashboard.py", label="📊 Community Dashboard", use_container_width=True)
+    with c4:
+        st.page_link("pages/map_view.py", label="🗺️ Safety Map", use_container_width=True)
 
 
 # ── Footer ────────────────────────────────────────────────────────
@@ -1160,7 +1173,7 @@ def render_footer() -> None:
             <span class="footer-link">📋 Terms of Use</span>
             <span class="footer-link">📬 Contact</span>
             <span class="footer-link">🛠️ Open Source</span>
-            <span class="footer-link">🏆 CivicTech Hackathon 2025</span>
+            <span class="footer-link">🏆 CivicTech Hackathon 2026</span>
         </div>
         <div style="margin-top:12px; font-size:11px; color:rgba(124,58,237,0.4);">
             Built with ❤️ for safer communities &nbsp;·&nbsp; v1.0.0 &nbsp;·&nbsp;
