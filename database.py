@@ -1,22 +1,18 @@
 import sqlite3
 import os
 from datetime import datetime
-from typing import Optional, List, Dict
 
-# ── Fix for OneDrive path issue ──────────────────────────────────
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_NAME = os.path.join(BASE_DIR, "spotit.db")
 
 
 def get_connection():
-    """Create and return a SQLite database connection."""
     conn = sqlite3.connect(DB_NAME)
     conn.row_factory = sqlite3.Row
     return conn
 
 
 def init_db():
-    """Create reports table if it does not already exist."""
     conn = get_connection()
     cursor = conn.cursor()
 
@@ -39,16 +35,7 @@ def init_db():
     conn.close()
 
 
-def create_report(
-    report_id: str,
-    category: str,
-    description: str,
-    location: str,
-    date: str = "",
-    time: str = "",
-    image_path: str = ""
-) -> bool:
-    """Insert a new report into the database."""
+def create_report(report_id, category, description, location, date="", time="", image_path=""):
     try:
         conn = get_connection()
         cursor = conn.cursor()
@@ -60,8 +47,14 @@ def create_report(
             )
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
-            report_id, category, description, location,
-            date, time, image_path, "Submitted",
+            report_id,
+            category,
+            description,
+            location,
+            date,
+            time,
+            image_path,
+            "Submitted",
             datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         ))
 
@@ -74,17 +67,13 @@ def create_report(
         return False
 
 
-def get_report(report_id: str) -> Optional[Dict]:
-    """Get one report using report ID."""
+def get_report(report_id):
     conn = get_connection()
     cursor = conn.cursor()
 
-    cursor.execute(
-        "SELECT * FROM reports WHERE report_id = ?",
-        (report_id,)
-    )
-
+    cursor.execute("SELECT * FROM reports WHERE report_id = ?", (report_id,))
     row = cursor.fetchone()
+
     conn.close()
 
     if row:
@@ -92,32 +81,32 @@ def get_report(report_id: str) -> Optional[Dict]:
     return None
 
 
-def get_all_reports() -> List[Dict]:
-    """Get all reports from the database."""
+def get_all_reports():
     conn = get_connection()
     cursor = conn.cursor()
 
     cursor.execute("SELECT * FROM reports ORDER BY created_at DESC")
-
     rows = cursor.fetchall()
+
     conn.close()
 
     return [dict(row) for row in rows]
 
 
-def update_status(report_id: str, status: str) -> bool:
-    """Update report status."""
+def update_status(report_id, status):
     try:
         conn = get_connection()
         cursor = conn.cursor()
 
-        cursor.execute("""
-            UPDATE reports SET status = ? WHERE report_id = ?
-        """, (status, report_id))
+        cursor.execute(
+            "UPDATE reports SET status = ? WHERE report_id = ?",
+            (status, report_id)
+        )
 
         conn.commit()
         updated = cursor.rowcount > 0
         conn.close()
+
         return updated
 
     except sqlite3.Error as error:
@@ -125,20 +114,17 @@ def update_status(report_id: str, status: str) -> bool:
         return False
 
 
-def delete_report(report_id: str) -> bool:
-    """Delete a report using report ID."""
+def delete_report(report_id):
     try:
         conn = get_connection()
         cursor = conn.cursor()
 
-        cursor.execute(
-            "DELETE FROM reports WHERE report_id = ?",
-            (report_id,)
-        )
+        cursor.execute("DELETE FROM reports WHERE report_id = ?", (report_id,))
 
         conn.commit()
         deleted = cursor.rowcount > 0
         conn.close()
+
         return deleted
 
     except sqlite3.Error as error:
@@ -146,8 +132,7 @@ def delete_report(report_id: str) -> bool:
         return False
 
 
-def get_report_stats() -> Dict:
-    """Return dashboard statistics."""
+def get_report_stats():
     conn = get_connection()
     cursor = conn.cursor()
 
@@ -169,16 +154,15 @@ def get_report_stats() -> Dict:
     conn.close()
 
     return {
-        "total_reports":       total_reports,
-        "submitted_reports":   submitted_reports,
+        "total_reports": total_reports,
+        "submitted_reports": submitted_reports,
         "under_review_reports": under_review_reports,
-        "verified_reports":    verified_reports,
-        "resolved_reports":    resolved_reports
+        "verified_reports": verified_reports,
+        "resolved_reports": resolved_reports
     }
 
 
-def get_reports_by_category() -> List[Dict]:
-    """Return report count grouped by category."""
+def get_reports_by_category():
     conn = get_connection()
     cursor = conn.cursor()
 
