@@ -14,9 +14,11 @@ st.set_page_config(
     layout="wide",
 )
 
+render_sidebar()
+
 st.markdown("""
 <style>
-            render_sidebar()
+            
             /* Hide default Streamlit multipage navigation */
 [data-testid="stSidebarNav"] {
     display: none !important;
@@ -120,14 +122,18 @@ section[data-testid="stSidebar"] > div:first-child {
 init_db()
 
 st.markdown("""
-<h1 class="main-title">🔍 Track Your Report</h1>
-<p class="subtitle">Enter your SpotIt Report ID to check the current status of your anonymous report.</p>
+<div style="text-align:center;margin-bottom:25px;">
+    <h1 class="main-title">🔍 Track Your Report</h1>
+    <p class="subtitle">
+        Enter your SpotIt Report ID to check the current status of your anonymous report.
+    </p>
+</div>
 """, unsafe_allow_html=True)
 
-st.markdown('<div class="search-card">', unsafe_allow_html=True)
+
 report_id = st.text_input("Report ID", placeholder="Example: SPOT20260530123045")
 track_button = st.button("Track Report")
-st.markdown('</div>', unsafe_allow_html=True)
+
 
 if track_button:
     if not report_id.strip():

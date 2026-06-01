@@ -16,6 +16,8 @@ st.set_page_config(
     layout="wide"
 )
 
+render_sidebar()
+
 init_db()
 
 # -------------------------------
@@ -76,7 +78,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-render_sidebar()
+
 
 # -------------------------------
 # Header
@@ -98,8 +100,7 @@ st.markdown(
 # -------------------------------
 with st.container():
 
-    st.markdown('<div class="form-card">', unsafe_allow_html=True)
-
+    
     category = st.selectbox(
         "Incident Category",
         [
@@ -130,10 +131,25 @@ with st.container():
             "Incident Time"
         )
 
-    location = st.text_input(
-        "Location",
-        placeholder="Enter incident location"
-    )
+    location = st.selectbox(
+    "Location",
+    sorted([
+        "Madhapur",
+        "Gachibowli",
+        "Kukatpally",
+        "Hitech City",
+        "Ameerpet",
+        "Begumpet",
+        "Banjara Hills",
+        "Secunderabad",
+        "Jubilee Hills",
+        "Kondapur",
+        "Miyapur",
+        "Dilsukhnagar",
+        "Koti",
+        "Charminar"
+    ])
+)
 
     description = st.text_area(
         "Description",
@@ -195,8 +211,7 @@ with st.container():
             else:
                 st.error("Something went wrong. The report was not saved. Please try again.")
 
-    st.markdown("</div>", unsafe_allow_html=True)
-
+   
 # -------------------------------
 # Privacy Notice
 # -------------------------------

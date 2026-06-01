@@ -35,6 +35,26 @@ SIDEBAR_CSS = """
 section[data-testid="stSidebar"] nav {
     display: none !important;
 }
+/* Hide ALL Streamlit default navigation */
+[data-testid="stSidebarNav"] {
+    display: none !important;
+}
+
+[data-testid="stSidebarNavItems"] {
+    display: none !important;
+}
+
+section[data-testid="stSidebar"] nav {
+    display: none !important;
+}
+
+ul[data-testid="stSidebarNavItems"] {
+    display: none !important;
+}
+
+div[data-testid="stSidebarNav"] {
+    display: none !important;
+}
 
 /* Hide keyboard_double / sidebar collapse text */
 [data-testid="stSidebarCollapseButton"],
@@ -93,12 +113,12 @@ section[data-testid="stSidebar"] > div:first-child {
 
 /* Section labels */
 .sidebar-nav-label {
-    font-size: 10px;
-    color: rgba(196,181,253,0.62) !important;
+    font-size: 11px;
+    font-weight: 800;
+    color: rgba(221,214,254,0.85) !important;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: 700;
-    margin: 18px 14px 9px 14px;
+    letter-spacing: 0.5px;
+    margin: 16px 14px 6px 14px;
 }
 
 /* Page link wrapper */
@@ -117,6 +137,14 @@ section[data-testid="stSidebar"] > div:first-child {
     font-weight: 700 !important;
     text-decoration: none !important;
     transition: 0.2s ease !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stPageLink"] a,
+[data-testid="stSidebar"] [data-testid="stPageLink"] a *,
+[data-testid="stSidebar"] [data-testid="stPageLink"] span,
+[data-testid="stSidebar"] [data-testid="stPageLink"] p,
+[data-testid="stSidebar"] [data-testid="stPageLink"] div {
+    color: #FFFFFF !important;
 }
 
 [data-testid="stSidebar"] [data-testid="stPageLink"] a:hover {

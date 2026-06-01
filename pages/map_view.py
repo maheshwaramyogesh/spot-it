@@ -9,10 +9,11 @@ from database import init_db, get_all_reports
 from sidebar_component import render_sidebar
 
 st.set_page_config(page_title="SpotIt Safety Map", page_icon="🗺️", layout="wide")
+render_sidebar()
 
 st.markdown("""
 <style>
-            render_sidebar()
+           
             /* Hide default Streamlit multipage navigation */
 [data-testid="stSidebarNav"] {
     display: none !important;
