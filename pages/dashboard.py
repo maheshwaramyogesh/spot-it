@@ -9,10 +9,12 @@ st.set_page_config(
     layout="wide"
 )
 
+render_sidebar()
+
 
 st.markdown("""
 <style>
-            render_sidebar()
+        
             /* Hide default Streamlit multipage navigation */
 [data-testid="stSidebarNav"] {
     display: none !important;
